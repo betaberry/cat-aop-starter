@@ -4,9 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.wyz</groupId>
-    <artifactId>cat-aop</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.shuishan</groupId>
+    <artifactId>cat-aop-starter</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <url>https://github.com/betaberry/cat-aop-starter</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,56 +17,88 @@
     </parent>
 
 
+    <profiles>
+        <profile>
+            <id>jdk-1.8</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <name>Maven2 Central Repository</name>
+                    <layout>default</layout>
+                    <url>http://repo1.maven.org/maven2</url>
+                </repository>
+                <repository>
+                    <id>unidal.releases</id>
+                    <url>http://unidal.org/nexus/content/repositories/releases/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.dianping.cat</groupId>
-            <artifactId>cat-client</artifactId>
-            <version>3.0.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/cat-client-3.0.0.jar</systemPath>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
 
-
+<!--        <dependency>-->
+<!--            <groupId>com.dianping.cat</groupId>-->
+<!--            <artifactId>cat-client</artifactId>-->
+<!--            <version>3.0.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>$src/main/resources/lib/cat-client-3.0.0.jar</systemPath>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.3.RELEASE</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+
                 <configuration>
-                    <executable>true</executable>
-                    <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.wyz.Application</mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <skip>true</skip>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
+                    </compilerArguments>
                 </configuration>
             </plugin>
+
         </plugins>
+
+        <!-- 主要配置：将引用的第三方 jar 包打进生成的 jar 文件的 BOOT-INF/lib 目录中 -->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src\main\resources\lib</directory>-->
+<!--                <targetPath>BOOT-INF\lib</targetPath>-->
+<!--                &lt;!&ndash;  <includes>-->
+<!--                      <include>**/*.jar</include>-->
+<!--                  </includes>&ndash;&gt;-->
+<!--            </resource>-->
+
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--            </resource>-->
+<!--        </resources>-->
+
+
     </build>
 
     <properties>

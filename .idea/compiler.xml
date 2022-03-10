@@ -14,7 +14,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="cat-aop" options="-parameters" />
+      <module name="cat-aop" options="-parameters -extdirs &quot;C:\Users\wyz\Desktop\git project\cat-aop/src/main/resources/lib&quot;" />
     </option>
   </component>
 </project>
